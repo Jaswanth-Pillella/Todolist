@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
-from services.user_service import UserService
+from ..services.user_service import UserService
 
 user_service = UserService()
 

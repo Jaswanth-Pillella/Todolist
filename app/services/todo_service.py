@@ -1,4 +1,4 @@
-from models.todo import Todo, db
+from ..models.todo import Todo, db
 
 class TodoService:
     @staticmethod

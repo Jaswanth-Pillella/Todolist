@@ -26,24 +26,41 @@
         <div class="form-group">
             <label for="filter_by">Filter by initial letters:</label>
             <input type="text" id="filter_by" name="filter_by" placeholder="Enter letters...">
+            <button type="submit" style="display: inline;">Apply</button>
         </div>
-        <button type="submit">Apply</button>
     </form>
 
     <!-- List all todos -->
+    <h1>My Todos</h1>
     <ul>
         {% for todo in todos %}
             <li>
-                <strong>{{ todo.title }}</strong>: {{ todo.description }}
-                <a href="{{ url_for('todo.edit_todo', todo_id=todo.todo_id) }}">Edit</a>
+                <input type="checkbox" id="todo-{{ todo.todo_id }}" onclick="toggleStrikeThrough(this)">
+                <span id="text-{{ todo.todo_id }}">
+                    <strong>{{ todo.title }}</strong>: {{ todo.description }}
+                </span>
+                <form action="{{ url_for('todo.edit_todo', todo_id=todo.todo_id) }}" style="display: inline;">
+                    <button>Edit</button>
+                </form>
                 <form action="{{ url_for('todo.delete', todo_id=todo.todo_id) }}" method="POST" style="display: inline;">
                     <button type="submit">Delete</button>
                 </form>
             </li>
         {% endfor %}
     </ul>
+    <script>
+        function toggleStrikeThrough(checkbox) {
+            const label = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                label.style.textDecoration = "line-through";
+            } else {
+                label.style.textDecoration = "none";
+            }
+        }
+    </script>
 
     <!-- Form for adding a new todo -->
+    <h1>Add a Todo</h1>
     <form action="{{ url_for('todo.add') }}" method="POST">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required><br><br>

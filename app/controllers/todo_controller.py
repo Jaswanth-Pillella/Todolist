@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
-from services.todo_service import TodoService
+from ..services.todo_service import TodoService
 
 todo_service = TodoService()
 

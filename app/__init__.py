@@ -1,20 +1,23 @@
+import os
 from flask import Flask
-from controllers.todo_controller import todo_controller
-from controllers.theme_controller import theme_controller
-from controllers.user_controller import user_controller
-from middlewares.error_handler import setup_error_handler
-from middlewares.authentication_middleware import require_login_middleware
-from models import db
-from config import Config
+from .controllers.todo_controller import todo_controller
+from .controllers.theme_controller import theme_controller
+from .controllers.user_controller import user_controller
+from .middlewares.error_handler import setup_error_handler
+from .middlewares.authentication_middleware import require_login_middleware
+from .models import db
+from .config import Config
+from dotenv import load_dotenv
+load_dotenv()
 
-def createapp():
+def create_app():
     app = Flask(__name__)
 
     # Load config
     app.config.from_object(Config)
 
     # Set a secret key for session management
-    app.secret_key = 'your_unique_secret_key'
+    app.secret_key = os.getenv("secret_key")
 
     # Initialize the database
     db.init_app(app)
